@@ -10,7 +10,7 @@ Proof-of-concept for creating a digital representation of a CTA-608 (CEA/EIA-608
 ### Why bother?
 I could not find an open-source Line-21 encoder out there.  I don't know why I really needed a Line-21 encoder, but there wasn't one.
 
-There's probably good reason why... A VBI would not typically be visible to a user; nor would the HBI.  These concepts do not appear in digital.
+There's probably good reason why an open-source Line-21 encoder does not exist... A VBI would not typically be visible to a user; nor would the HBI.  These concepts do not appear in digital.
 
 Ok, sometimes you will see the Line-21 waveform when digitizing a source into a full-frame 486 picture, but the VBI should not really appear in a 480 picture.  The team over at vhs-decode _do_ care about the VBI and preserving the full frame, including VBI and HBI, but the average user does not need analog Line-21 captions.  But if you have found this script, you probably know all that already.
 
