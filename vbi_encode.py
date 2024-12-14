@@ -9,7 +9,7 @@ from PIL import Image
 
 # TODO: PyLint
 
-# Array of two-byte words for Field 1.  The convention of duplicating control codes seems wasteful in terms of in a digital world.
+# Array of two-byte words for Field 1.  It should produce a pop-on capttion on row-15. I shall leave it to the reader to guess what it says.  The convention of duplicating control codes seems wasteful in terms of in a digital world.
 field1_words_hex = [
     "94ae",
     "9420",
@@ -24,7 +24,7 @@ field1_words_hex = [
     "942c",
     "942f",
 ]
-# Using null characters for Field 2, since From EIA-608... "When no field 2 services are being used, the line 21, field 2 waveform shall carry the appropriate clock run-in and null characters with parity bits"
+# Using null characters for Field 2, since From CTA-608... "When no field 2 services are being used, the line 21, field 2 waveform shall carry the appropriate clock run-in and null characters with parity bits"
 field2_words_hex = ["8080"] * len(field1_words_hex)
 
 
