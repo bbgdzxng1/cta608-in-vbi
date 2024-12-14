@@ -51,26 +51,26 @@ Clock Run-In to Third Start Bit (C) | 2   * D
 Data Bit (D) | 1   * D
 Data Characters (E) | 16   * D
 
-That gets us to 26 * D.  Since Clock Run-In needs to be a sinusoidal wave of freqency D to produce `01010101010101` you need ~52 square pixels, which then get utilized as non-square pixels.
+That gets us to 26 * D.  Since Clock Run-In needs to be a sinusoidal wave of freqency D to produce `01010101010101`, that needs 14 pixels.  Thus D need to be a minimum of 2 pixels.
 
 Section | Pixels (D = 2 pixels)
 --- | ---
-Clock Run-In (B) | 14 pixels (could get away with 13)
-Clock Run-In to Third Start Bit (C) | 4 pixels
-Data Bit (D) | 2 pixels
-Data Characters (E) | 32 pixels
+Clock Run-In (B) | 7 * D = 14 pixels (could get away with 2 * 6.5 = 13)
+Clock Run-In to Third Start Bit (C) | 2 * D = 4 pixels
+Data Bit (D) | 1 * D = 2 pixels
+Data Characters (E) | 16 * D = 32 pixels
 
-You could probably get away with just a total of 50 pixels minimum if you use `1010101010101` as the Clock Run-In(B) of 6.5 * D = 6.5 * 2 pixels = 13 pixels.  13+4+2+32 = bare minimum of 50. 
+You could probably get away with just a total of 51 pixels minimum if you use `1010101010101` as the Clock Run-In(B) of 6.5 * D = 6.5 * 2 pixels = 13 pixels.  13+4+2+32 = absolute bare minimum of 51 pixels.  But that's a nasty number.  So we'll use a full `01010101010101` as the run-in giving us a minimum of 52.
 
 Once the 52 pixel waveform is encoded as an image, the script scales that to scanline of 640 square pixels wide.  It is a bit irritating that the payload ends up as 52 horizontal width and gets scaled to 640, which is mathematically imperfect (but given that analog line-21 608s rely on sine waves, it is within the realms of error).
-- There must be a more elegant way of pre & post padding to 64, so that it scales perfectly to 640.
-- 50 is not much better.
+- There must be a more elegant way of pre & post padding to a harmonic of 640 (64?), so that it scales pixel-perfect to 640.
+- 51 is not much better than 52.  And decoders may not expect the scanline to start immediately on a 1.
 
-It is expected that a user will encode the 640x1 scanline into a horizontal width of 704 or 720 non-square pixels.
+It is expected that a user will encode the 640x1 scanline into non-square pixels, giving a horizontal width of 704 or 720.
 
 ### Why use Python PIL?
 
-I believe that Python PIL/pillow is RGB only.  Of course, it would be preferable to operate in YUV (yuvio? imageio?).  But _"if all you got is a hammer, the whole world looks like a nail"_.
+I understand that Python PIL/pillow is RGB only.  Of course, it would be preferable to operate in YUV (yuvio? imageio?).  But _"if all you got is a hammer, the whole world looks like a nail"_.
 
 PIL it shall be, we'll let FFmpeg take the pain of color formats.
 
