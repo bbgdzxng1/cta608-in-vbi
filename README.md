@@ -18,16 +18,16 @@ It could be useful for creating a digital waveform to enhance or correct a vhs-d
 
 ### This script doesn't do much, right?
 
-This script just takes an simple hardcoded array of two-byte words and encodes those two-byte words into a series of sequential video frames, to _simulate_ Line-21 analog closed captions.  It is a badly, written proof of concept.
+This script just takes an simple hardcoded array of CTA-608 two-byte words (the same as used in SCC) and encodes those two-byte words into a series of sequential video frames, to _simulate_ Line-21 analog closed captions.  It is a badly, written proof of concept.
 - You can't set the timings.
 - You can't pipe stuff in.  It is a proof of concept.
 - You can't send the script an SCC file.  It is _not_ an SCC convertor, processor or encoder.
-- This script does not deal with DTVCCs, MPEG-2 Picture User Data, H.264 SEI side data.  There are other tools for digital 608-compatibility-bytes.  
+- This script does not deal with DTVCCs, MPEG-2 Picture User Data, H.264 SEI side data.  It is for Line-21s.  There are other tools, such a libcaption, for creating digital 608-compatibility-bytes.  
 
 
 ### Line-21 Placement in NTSC
 
-The Line 21s are probably in the wrong place.  But the script can be tweaked to tweak the height of the pseudo-vbi.  If you want a pseudo-VBI of six lines, tweak as you see fit.
+The Line 21s in this script are probably in the wrong place, when compared to real-world.  But the script can be tweaked to tweak the height of the pseudo-vbi.  If you want a pseudo-VBI of six lines, tweak as you see fit.
 
 field1 | field2 | data
 --- | --- | ---
