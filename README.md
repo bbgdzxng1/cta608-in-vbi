@@ -14,6 +14,8 @@ There's probably good reason why... A VBI would not typically be visible to a us
 
 Ok, sometimes you will see the Line-21 waveform when digitizing a source into a full-frame 486 picture, but the VBI should not really appear in a 480 picture.  The team over at vhs-decode _do_ care about the VBI and preserving the full frame, including VBI and HBI, but the average user does not need analog Line-21 captions.  But if you have found this script, you probably know all that already.
 
+It could be useful for creating a digital waveform to enhance or correct a vhs-decode.  It could be used for retro-video creation.
+
 ### This script doesn't do much, right?
 
 This script just takes an simple hardcoded array of two-byte words and encodes those two-byte words into a series of sequential video frames, to _simulate_ Line-21 analog closed captions.  It is a badly, written proof of concept.
@@ -103,7 +105,7 @@ There is no dependency checking, no error checking, no type checking, everything
 ... And SCTE, SMPTE, ATSC, the good people at WGBH, the National Captioning Institute, Telecaption I, II, 3000? etc.  The crew at ld/vhs-decode.  And, of course, Team FFmpeg.
 
 ### VBI fun!
-- [Unai.VITC](text](https://)https://github.com/unai-d/Unai.VITC) which creates a VITC waveform, which inspired this proof of concept.
+- [Unai.VITC](https://github.com/unai-d/Unai.VITC) which creates a VITC waveform, which kinda inspired the idea to create a scanline that could be embedded into a VBI.
 - FFmpeg's [readvitc](https://github.com/FFmpeg/FFmpeg/blob/master/libavfilter/vf_readvitc.c)
 - [Wide Screen Signaling](https://en.wikipedia.org/wiki/Widescreen_signaling) could be simulated in the same way.
 - vhs-decode's [Wide Screen Signaling wiki](https://github.com/oyvindln/vhs-decode/wiki/Wide-Screen-Signalling)
