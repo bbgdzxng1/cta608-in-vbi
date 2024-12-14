@@ -36,9 +36,9 @@ field1 | field2 | data
 21  | 284 | EIA-608 Line 21
 22  | 285 | Wide-screen Signaling
 
-This naive script willingly ignores inconveniences like interlaced frames, setup/pedestal, IRE, sine, colorrange, colorspace and plenty more.  It is "Ones and Zeros", baby.
+This naive script willingly ignores inconveniences like interlaced frames, setup/pedestal, IRE, sine, colorrange, colorspace and plenty more.  It is "Ones and Zeros", baby.  The pixels are either 0 or 255 (SDI illegal), but the script can be modified to be 1-254 (SDI legal), or 16-240 (limited), or any value of intensity to simulate setup/pedestal when combined with an HBI.
 
-It gets a little tricky between digital vertical lines and the field1/2 analog-scanline naming conventions.
+It gets a little tricky between digital vertical lines and the analog-scanline naming conventions.  I make no apologies.
 
 ### Timing
 
@@ -105,7 +105,7 @@ There is no dependency checking, no error checking, no type checking, everything
 ... And SCTE, SMPTE, ATSC, the good people at WGBH, the National Captioning Institute, Telecaption I, II, 3000? etc.  The crew at ld/vhs-decode.  And, of course, Team FFmpeg.
 
 ### VBI fun!
-- [Unai.VITC](https://github.com/unai-d/Unai.VITC) which creates a VITC waveform, which kinda inspired the idea to create a scanline that could be embedded into a VBI.
+- [Unai.VITC](https://github.com/unai-d/Unai.VITC) which creates a VITC 90-bit scanline, which kinda inspired the idea to create a Line-21 scanline that could be embedded into a pseudo-VBI.
 - FFmpeg's [readvitc](https://github.com/FFmpeg/FFmpeg/blob/master/libavfilter/vf_readvitc.c)
 - [Wide Screen Signaling](https://en.wikipedia.org/wiki/Widescreen_signaling) could be simulated in the same way.
 - vhs-decode's [Wide Screen Signaling wiki](https://github.com/oyvindln/vhs-decode/wiki/Wide-Screen-Signalling)
