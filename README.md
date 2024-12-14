@@ -51,7 +51,7 @@ Clock Run-In to Third Start Bit (C) | 2   * D
 Data Bit (D) | 1   * D
 Data Characters (E) | 16   * D
 
-That gets us to 26 * D.  Since Clock Run-In needs to be a sinusoidal wave of freqency D to produce `01010101010101` you need 52 pixels.
+That gets us to 26 * D.  Since Clock Run-In needs to be a sinusoidal wave of freqency D to produce `01010101010101` you need ~52 square pixels, which then get utilized as non-square pixels.
 
 Section | Pixels (D = 2 pixels)
 --- | ---
