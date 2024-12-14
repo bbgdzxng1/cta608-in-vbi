@@ -2,6 +2,8 @@
 
 Proof-of-concept for creating a digital representation of a CTA-608 (CEA/EIA-608) waveform.
 
+![screenshot](https://github.com/user-attachments/assets/9d67a5a4-06c6-42a3-97c1-9a68a2d3c9aa)
+
 > [!WARNING]
 > This is NOT reference code.  This has only been tested with FFmpeg's readeia608, which is not a Line 21 reference decoder.
 
