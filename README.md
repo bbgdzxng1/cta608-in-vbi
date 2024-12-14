@@ -31,7 +31,7 @@ I don't speak python.  This is my first python script.  I don't know the code or
 
 - [Title-47, from the man](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-C/part-79)
 - [Line 21 Data Services (ANSI/CTA-608-E S-2019)](https://shop.cta.tech/products/line-21-data-services)
-- https://github.com/FFmpeg/FFmpeg/blob/master/libavfilter/vf_readvitc.c
+- https://ffmpeg.org/ffmpeg-filters.html#readeia608
 - https://github.com/FFmpeg/FFmpeg/blob/master/libavfilter/vf_readeia608.c
 - https://github.com/amiaopensource/sccyou
 - http://www.theneitherworld.com/mcpoodle/SCC_TOOLS/DOCS/CC_CODES.HTML
@@ -40,10 +40,12 @@ I don't speak python.  This is my first python script.  I don't know the code or
 - https://hackaday.com/2021/05/27/history-of-closed-captions-entering-the-digital-era/
 - https://nootropicdesign.com/projectlab/2011/03/20/decoding-closed-captioning/
 - https://garydrobson.com/2014/04/16/closed-captions-v-chip-and-other-vbi-data/
-- https://github.com/szatmary/libcaption
+- https://github.com/zapping-vbi/zvbi
 
 ### Related
+- [libcaption, for inserting DTVCCs](https://github.com/szatmary/libcaption)
 - https://github.com/unai-d/Unai.VITC
+- https://github.com/FFmpeg/FFmpeg/blob/master/libavfilter/vf_readvitc.c
 - https://en.wikipedia.org/wiki/Widescreen_signaling
 - https://github.com/oyvindln/vhs-decode/wiki/Wide-Screen-Signalling
 
