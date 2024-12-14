@@ -62,11 +62,11 @@ Data Characters (E) | 16 * D = 32 pixels
 
 You could probably get away with just a total of 51 pixels minimum if you use `1010101010101` as the Clock Run-In(B) of 6.5 * D = 6.5 * 2 pixels = 13 pixels.  13+4+2+32 = absolute bare minimum of 51 pixels.  But that's a nasty number.  So we'll use a full `01010101010101` as the run-in giving us a minimum of 52.
 
-Once the 52 pixel waveform is encoded as an image, the script scales that to scanline of 640 square pixels wide.  It is a bit irritating that the payload ends up as 52 horizontal width and gets scaled to 640, which is mathematically imperfect (but given that analog line-21 608s rely on sine waves, it is within the realms of error).
+Once the 52 pixel waveform is encoded as an image, the script scales that to scanline of 640 square pixels wide.  It is a bit irritating that the payload ends up as 52 horizontal width is mathematically imperfect when placed on a 640 square pixel scanline (but given that analog line-21 608s rely on sine waves, it is within the realms of error).
 - There must be a more elegant way of pre & post padding to a harmonic of 640 (64?), so that it scales pixel-perfect to 640.
 - 51 is not much better than 52.  And decoders may not expect the scanline to start immediately on a 1.
 
-It is expected that a user will encode the 640x1 scanline into non-square pixels, giving a horizontal width of 704 or 720.
+It is expected that a user will encode the 640x1 scanline into non-square pixels.
 
 ### Why use Python PIL?
 
