@@ -33,6 +33,7 @@ I don't speak python.  This is my first python script.  I don't know the code or
 - [Line 21 Data Services (ANSI/CTA-608-E S-2019)](https://shop.cta.tech/products/line-21-data-services)
 - https://github.com/FFmpeg/FFmpeg/blob/master/libavfilter/vf_readvitc.c
 - https://github.com/FFmpeg/FFmpeg/blob/master/libavfilter/vf_readeia608.c
+- https://github.com/amiaopensource/sccyou
 - http://www.theneitherworld.com/mcpoodle/SCC_TOOLS/DOCS/CC_CODES.HTML
 - http://www.theneitherworld.com/mcpoodle/SCC_TOOLS/DOCS/CC_CHARS.HTML
 - https://hackaday.com/2021/04/14/history-of-closed-captions-the-analog-era/
