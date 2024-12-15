@@ -68,6 +68,14 @@ Once the 52 pixel waveform is encoded as an image, the script scales that to sca
 
 It is expected that a user will encode the 640x1 scanline into non-square pixels.
 
+### NRZ Encoding
+
+The CTA-608 spec states:
+
+_"5.3 Data Formats.  The data signal shall be coded using non-return-to-zero (NRZ) format and employing standard ASCII 7 bit plus ODD parity character codes."_
+
+This script does not apply NRZ encoding.  The FFmpeg `readeia608` filter sucessfully decoded the waveform without NRZ encoding being applied.  This requires futher investigation.
+
 ### Why use Python PIL?
 
 I understand that Python PIL/pillow is RGB only.  Of course, it would be preferable to operate in YUV (yuvio? imageio?).  But _"if all you got is a hammer, the whole world looks like a nail"_.
