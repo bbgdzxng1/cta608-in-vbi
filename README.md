@@ -128,5 +128,6 @@ There is no dependency checking, no error checking, no type checking, everything
 enhanced television parameters).
 - [Wide Screen Signaling](https://en.wikipedia.org/wiki/Widescreen_signaling) could be simulated in the same way.
 - vhs-decode's [Wide Screen Signaling wiki](https://github.com/oyvindln/vhs-decode/wiki/Wide-Screen-Signalling)
+- Correctly encoding a WSS in a 525 digital stream would need careful consideration, since in bit 7, the WSS signals whether the frame is a referene frame.  This relies on either prior-knowledge or predictable reference frames. 
 
 
