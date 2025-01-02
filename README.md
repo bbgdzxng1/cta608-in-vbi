@@ -27,7 +27,7 @@ This script just takes an simple hardcoded array of CTA-608 two-byte words (the 
 
 ### Line-21 Placement in NTSC
 
-The Line 21s in this script are probably in the wrong place, when compared to real-world.  But the script can be tweaked to tweak the height of the pseudo-vbi.  If you want a pseudo-VBI of six lines, tweak as you see fit.
+The Line 21s in this script are probably in the wrong place, when compared to real-world implementations.  But the script can be tweaked to change the height of the pseudo-VBI.  If you want a pseudo-VBI of six lines, adjust as you see fit.
 
 field1 | field2 | data
 --- | --- | ---
@@ -36,7 +36,7 @@ field1 | field2 | data
 21  | 284 | EIA-608 Line 21
 22  | 285 | Wide-screen Signaling
 
-This naive script willingly ignores inconveniences like interlaced frames, setup/pedestal, IRE, sine, colorrange, colorspace and plenty more.  It is "Ones and Zeros", baby.  The pixels are either 0 or 255 (SDI illegal), but the script can be modified to be 1-254 (SDI legal), or 16-240 (limited), or any value of intensity to simulate setup/pedestal when combined with an HBI.
+This naive script willingly ignores inconveniences like interlaced frames, setup/pedestal, IRE, sine-waves, colorrange, colorspace and plenty more.  It is _"ones and seros, baby"_.  The pixels are either 0 or 255, but the script can be modified to produce 1-254 (SDI legal), or 16-240 (limited), or any value of intensity to simulate setup/pedestal when combined with an HBI.
 
 It gets a little tricky between digital vertical lines and the analog-scanline naming conventions.  I make no apologies.
 
@@ -111,23 +111,68 @@ There is no dependency checking, no error checking, no type checking, everything
   - [Closed Captions, V-Chip & Other VBI data](https://garydrobson.com/2014/04/16/closed-captions-v-chip-and-other-vbi-data/)
 - A blog on [Decoding Closed Captioning](https://nootropicdesign.com/projectlab/2011/03/20/decoding-closed-captioning/)
 
-
 ... And SCTE, SMPTE, ATSC, the good people at WGBH, the National Captioning Institute, Telecaption I, II, 3000? etc.  The crew at ld/vhs-decode.  And, of course, Team FFmpeg.
 
-### VITC
+### VITC in VBI
 - [Unai.VITC](https://github.com/unai-d/Unai.VITC) which creates a VITC 90-bit scanline, which kinda inspired the idea to create a Line-21 scanline that could be embedded into a pseudo-VBI.
 - FFmpeg's [readvitc](https://github.com/FFmpeg/FFmpeg/blob/master/libavfilter/vf_readvitc.c)
 
-### DTVCCs
+### DTVCCs (digital 608s & 708s) in MPEG-2 Picture User Data and H.264 SEI side data
 - ATSC [A/53](https://www.atsc.org/atsc-documents/a53-atsc-digital-television-standard/)
 - CTA [Digital Television Closed Captioning (ANSI/CTA-708-E S-2023)](https://shop.cta.tech/products/digital-television-dtv-closed-captioning) aka DTVCCs
 - [libcaption](https://github.com/szatmary/libcaption) for inserting DTVCCs.  Credit: Matt Szatmary, formerly at Twitch, now over at mux.com
 
-### Wide-screen Signaling/Signalling
-- [Rec. ITU-R BT.1119-2](https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.1119-2-199802-W!!PDF-E.pdf) Recommendation ITU-R BT.1119-2 Wide-screen Signalling for Broadcasting (Signalling for wide-screen and other
-enhanced television parameters).
+### Wide-screen Signaling/Signalling in VBI
+- [Rec. ITU-R BT.1119-2](https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.1119-2-199802-W!!PDF-E.pdf) Recommendation ITU-R BT.1119-2 Wide-screen Signalling for Broadcasting (Signalling for wide-screen and other enhanced television parameters).
 - [Wide Screen Signaling](https://en.wikipedia.org/wiki/Widescreen_signaling) could be simulated in the same way.
 - vhs-decode's [Wide Screen Signaling wiki](https://github.com/oyvindln/vhs-decode/wiki/Wide-Screen-Signalling)
 - Correctly encoding a WSS in a 525 digital stream would need careful consideration, since in bit 7, the WSS signals whether the frame is a referene frame.  This relies on either prior-knowledge or predictable reference frames. 
 
+### libzvbi's zvbi-ntsc-cc line 21 decoder
 
+From https://github.com/zapping-vbi/zvbi
+
+```shell
+$ zvbi-ntsc-cc -h
+
+CCDecoder 0.13 -- Closed Caption and XDS decoder
+Copyright (C) 2003-2007 Mike Baker, Mark K. Kim, Michael H. Schimek
+<mschimek@users.sf.net>; Based on code by timecop@japan.co.jp.
+This program is licensed under GPL 2 or later. NO WARRANTIES.
+
+Usage: zvbi-ntsc-cc [options]
+Options:
+-? | -h | --help | --usage  Print this message and exit
+-1 ... -4 | --cc1-file ... --cc4-file filename
+                            Append caption channel CC1 ... CC4 to this file
+-b | --no-webtv             Do not print WebTV links
+-c | --cc                   Print Closed Caption (includes WebTV)
+-d | --device filename      VBI device [/dev/vbi]
+-f | --filter type[,type]*  Select XDS info: all, call, desc, length,
+                            network, rating, time, timecode, timezone,
+                            title. Multiple -f options accumulate. [all]
+-k | --keyword string       Break caption line at this word (broken?).
+                            Multiple -k options accumulate.
+-l | --channel number       Select caption channel 1 ... 4 [no filter]
+-p | --plain-ascii          Print plain ASCII, else insert VT.100 color,
+                            italic and underline control codes
+-r | --raw line-number      Dump raw VBI data
+-s | --sentences            Decode caption by sentences
+-v | --verbose              Increase verbosity
+-w | --window               Open debugging window (with -r option)
+-x | --xds                  Print XDS info
+-C | --cc-file filename     Append all caption to this file [stdout]
+-R | --semi-raw             Dump semi-raw VBI data (with -r option)
+-X | --xds-file filename    Append XDS info to this file [stdout]
+```
+
+```shell
+$ brew info lescanauxdiscrets/tap/zvbi
+
+==> lescanauxdiscrets/tap/zvbi: stable 0.2.35
+http://zapping.sourceforge.net/
+Installed
+/opt/homebrew/Cellar/zvbi/0.2.35 (25 files, 1.4MB) *
+  Built from source on 2024-12-18 at 09:46:31
+From: https://github.com/lescanauxdiscrets/homebrew-tap/blob/HEAD/Formula/zvbi.rb
+```
