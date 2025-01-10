@@ -18,7 +18,7 @@ It could be useful for creating a digital waveform to enhance or correct a vhs-d
 
 ### This script doesn't do much, right?
 
-This script just takes an simple hardcoded array of CTA-608 two-byte words (the same as used in SCC) and encodes those two-byte words into a series of sequential video frames, to _simulate_ Line-21 analog closed captions.  It is a badly, written proof of concept.
+This script just takes an simple hardcoded array of CTA-608 two-byte words (the same as used in SCC) and encodes those two-byte words into a series of sequential video frames, to _simulate_ Line-21 analog closed captions.  It is a badly written proof of concept.
 - You can't set the timings.
 - You can't pipe stuff in.  It is a proof of concept.
 - You can't send the script an SCC file.  It is _not_ an SCC convertor, processor or encoder.
@@ -36,7 +36,7 @@ field1 | field2 | data
 21  | 284 | EIA-608 Line 21
 22  | 285 | Wide-screen Signaling
 
-This naive script willingly ignores inconveniences like interlaced frames, setup/pedestal, IRE, sine-waves, colorrange, colorspace and plenty more.  It is _"ones and seros, baby"_.  The pixels are either 0 or 255, but the script can be modified to produce 1-254 (SDI legal), or 16-240 (limited), or any value of intensity to simulate setup/pedestal when combined with an HBI.
+This naive script willingly ignores inconveniences like interlaced frames, setup/pedestal, IRE, sine-waves, colorrange, colorspace and plenty more.  It is _"ones and zeros, baby"_.  The pixels are either 0 or 255, but the script can be modified to produce 1-254 (SDI legal), or 16-240 (limited), or any value of intensity to simulate setup/pedestal when combined with an HBI.
 
 It gets a little tricky between digital vertical lines and the analog-scanline naming conventions.  I make no apologies.
 
