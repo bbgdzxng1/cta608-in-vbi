@@ -53,6 +53,8 @@ Data Characters (E) | 16   * D
 
 That gets us to 26 * D.  Since Clock Run-In needs to be a sinusoidal wave of freqency D to produce `01010101010101`, that needs 14 pixels.  Thus D need to be a minimum of 2 pixels.
 
+In "The Closed Captioning Handbook", Gary Robson writes that "The Clock Run-In signal is 7 full cycles of a 0.5034965 MHz sine wave centered around the 25 IRE level, lasting 12.91 ps."  Robson was a member of the 608 and 708 working group, so we'll use 7*D as the Clock Run-In.
+
 Section | Pixels (D = 2 pixels)
 --- | ---
 Clock Run-In (B) | 7 * D = 14 pixels (could get away with 2 * 6.5 = 13)
@@ -74,7 +76,9 @@ The CTA-608 spec states:
 
 _"5.3 Data Formats.  The data signal shall be coded using non-return-to-zero (NRZ) format and employing standard ASCII 7 bit plus ODD parity character codes."_
 
-This script does not apply NRZ encoding.  The FFmpeg `readeia608` filter sucessfully decoded the waveform without NRZ encoding being applied.  This requires futher investigation.
+This script does not apply NRZ encoding.  The FFmpeg `readeia608` filter sucessfully decodes the waveform without NRZ encoding being applied to the signal.  This requires futher investigation...
+- CLARIFICATION...  In "The Closed Captioning Handbook", Robson writes... _"The data itself consists of two non-return-to-zero (NRZ) encoded characters, each containing seven data bits (b0-b6) and one odd parity bit (b7). The high (one) level is 50+12 IRE, and the low (zero) level is —-2 to +12 IRE."_  This helps clarify... it is not the _waveform_ or _signal_ that is NRZ encoded, but rather the encoding of the two characters.
+
 
 ### Why use Python PIL?
 
