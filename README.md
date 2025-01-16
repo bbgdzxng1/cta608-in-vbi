@@ -94,16 +94,16 @@ There is no dependency checking, no error checking, no type checking, everything
 - FFmpeg's [readeia608 documentation](https://ffmpeg.org/ffmpeg-filters.html#readeia608) and [source code](https://github.com/FFmpeg/FFmpeg/blob/master/libavfilter/vf_readeia608.c).  Credit: Paul.
 - [sccyou](https://github.com/amiaopensource/sccyou). A bash script for converting line-21s to SCC.  Credit: Dave Rice & Paul.
 - McPoodle's [CC codes](http://www.theneitherworld.com/mcpoodle/SCC_TOOLS/DOCS/CC_CODES.HTML) and [CC characters](http://www.theneitherworld.com/mcpoodle/SCC_TOOLS/DOCS/CC_CHARS.HTML).  Credit to McPoodle for reverse-engineering SCCs before _"accessibility-standards became accessible to the public"_.
+- The Closed Captioning Handbook, ROBSON, Gary D (Elsevier).  Note: this hard-to-find book is an excellent reference.  Robson was involved in the development of both 608 and 708.
+  - [2004 Edition](https://garydrobson.com/books/closed-captioning-books/the-closed-captioning-handbook/)
+  - [Closed Captions, V-Chip & Other VBI data](https://garydrobson.com/2014/04/16/closed-captions-v-chip-and-other-vbi-data/)
 - The History of Closed Captions by Chris Lott.
   - [The analog era](https://hackaday.com/2021/04/14/history-of-closed-captions-the-analog-era/)
   - [entering the digital era](https://hackaday.com/2021/05/27/history-of-closed-captions-entering-the-digital-era/)
-- [libzvbi](https://github.com/zapping-vbi/zvbi)
 - Digital Video and HD, Algorithms & Interfaces. POYNTON, Charles.  (Morgan Kaufmann)
   - [First Edition (2003)](https://archive.org/details/DigitalVideoForDummies/Digital%20Video%20And%20Hdtv%20Algorithms%20And%20Interfaces)
   - [Second Edition (2012)](https://archive.org/details/digital-video-and-hd-algorithms-and-interfaces-2nd-ed.-poynton-2012-02-07/)
-- The Closed Captioning Handbook, ROBSON, Gary D (Elsevier)
-  - [2004 Edition](https://garydrobson.com/books/closed-captioning-books/the-closed-captioning-handbook/)
-  - [Closed Captions, V-Chip & Other VBI data](https://garydrobson.com/2014/04/16/closed-captions-v-chip-and-other-vbi-data/)
+- [libzvbi](https://github.com/zapping-vbi/zvbi)
 - A blog on [Decoding Closed Captioning](https://nootropicdesign.com/projectlab/2011/03/20/decoding-closed-captioning/)
 
 ... And SCTE, SMPTE, ATSC, the good people at WGBH, the National Captioning Institute, Telecaption I, II, 3000? etc.  The crew at ld/vhs-decode.  And, of course, Team FFmpeg.
