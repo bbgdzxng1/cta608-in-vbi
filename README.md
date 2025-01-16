@@ -70,15 +70,6 @@ Once the 52 pixel waveform is encoded as an image, the script scales that to sca
 
 It is expected that a user will encode the 640x1 scanline into non-square pixels.
 
-### NRZ Encoding
-
-The CTA-608 spec states:
-
-_"5.3 Data Formats.  The data signal shall be coded using non-return-to-zero (NRZ) format and employing standard ASCII 7 bit plus ODD parity character codes."_
-
-This script does not apply NRZ encoding.  The FFmpeg `readeia608` filter sucessfully decodes the waveform without NRZ encoding being applied to the signal.  This requires futher investigation...
-- CLARIFICATION...  In "The Closed Captioning Handbook", Robson writes... _"The data itself consists of two non-return-to-zero (NRZ) encoded characters, each containing seven data bits (b0-b6) and one odd parity bit (b7). The high (one) level is 50+12 IRE, and the low (zero) level is —-2 to +12 IRE."_  This helps clarify... it is not the _waveform_ or _signal_ that is NRZ encoded, but rather the encoding of the two characters.
-
 
 ### Why use Python PIL?
 
