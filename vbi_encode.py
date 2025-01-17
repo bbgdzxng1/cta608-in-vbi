@@ -9,7 +9,7 @@ from PIL import Image
 
 # TODO: PyLint
 
-# Array of two-byte words for Field 1.  It should produce a pop-on capttion on row-15. I shall leave it to the reader to guess what it says.  The convention of duplicating control codes seems wasteful in terms of in a digital world.
+# Array of two-byte words for Field 1.  It should produce a pop-on capttion on row-15. I shall leave it to the reader to guess what it says.  The convention of duplicating control codes in Field 1 seems wasteful in terms of in a digital world, but an implementor may choose to duplicate control codes, at least in Field 1.  CTA-608-E discourages duplicate control codes in field 2, to preserve bandwidth.
 field1_words_hex = [
     "94ae",
     "9420",
