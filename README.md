@@ -53,7 +53,7 @@ Data Characters (E) | 16   * D
 
 That gets us to 26 * D.  Since Clock Run-In needs to be a sinusoidal wave of freqency D to produce `01010101010101`, that needs 14 pixels.  Thus D need to be a minimum of 2 pixels.
 
-In "The Closed Captioning Handbook", Gary Robson writes that "The Clock Run-In signal is 7 full cycles of a 0.5034965 MHz sine wave centered around the 25 IRE level, lasting 12.91 ps."  Robson was a member of the 608 and 708 working group, so we'll use 7*D as the Clock Run-In.
+In "The Closed Captioning Handbook", Gary Robson writes _"The Clock Run-In signal is 7 full cycles of a 0.5034965 MHz sine wave centered around the 25 IRE level, lasting 12.91 ps."_  Robson was a member of the 608 and 708 working group, so we'll use 7*D as the Clock Run-In.
 
 Section | Pixels (D = 2 pixels)
 --- | ---
@@ -89,14 +89,17 @@ There is no dependency checking, no error checking, no type checking, everything
 
 ### Line-21 Captions
 
+The four magic docs that explain how to construct 608 pairs are...
 - [Title-47, from The Man.](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-C/part-79)
-- CTA [Line 21 Data Services (ANSI/CTA-608-E S-2019).](https://shop.cta.tech/products/line-21-data-services) Now freely-available from CTA.
-- FFmpeg's [readeia608 documentation](https://ffmpeg.org/ffmpeg-filters.html#readeia608) and [source code](https://github.com/FFmpeg/FFmpeg/blob/master/libavfilter/vf_readeia608.c).  Credit: Paul.
-- [sccyou](https://github.com/amiaopensource/sccyou). A bash script for converting line-21s to SCC.  Credit: Dave Rice & Paul.
-- McPoodle's [CC codes](http://www.theneitherworld.com/mcpoodle/SCC_TOOLS/DOCS/CC_CODES.HTML) and [CC characters](http://www.theneitherworld.com/mcpoodle/SCC_TOOLS/DOCS/CC_CHARS.HTML).  Credit to McPoodle for reverse-engineering SCCs before _"accessibility-standards became accessible to the public"_.
-- The Closed Captioning Handbook, ROBSON, Gary D (Elsevier).  Note: this hard-to-find book is an excellent reference.  Robson was involved in the development of both 608 and 708.
+- CTA [Line 21 Data Services (ANSI/CTA-608-E S-2019).](https://shop.cta.tech/products/line-21-data-services) Now freely-available from CTA.  Contains useful implementation details, including extended chararacter sets which are not covered in Title-47.
+- The Closed Captioning Handbook, ROBSON, Gary D (Elsevier).  Note: this hard-to-find book is an excellent reference.  Robson was involved in the development of both 608 and 708.  This book is a great companion to Title-47 and CTA-608-E.
   - [2004 Edition](https://garydrobson.com/books/closed-captioning-books/the-closed-captioning-handbook/)
   - [Closed Captions, V-Chip & Other VBI data](https://garydrobson.com/2014/04/16/closed-captions-v-chip-and-other-vbi-data/)
+- McPoodle's [CC codes](http://www.theneitherworld.com/mcpoodle/SCC_TOOLS/DOCS/CC_CODES.HTML) and [CC characters](http://www.theneitherworld.com/mcpoodle/SCC_TOOLS/DOCS/CC_CHARS.HTML).  Credit to McPoodle for reverse-engineering SCCs before _"accessibility-standards became accessible to the public"_.  It should be cross-referenced to Title-47 and CTA-608-E, and should not be considered reference material (since it is reverse engineered), but is a useful quick guide.  It may contain implementation errors.
+
+Other useful material...
+- FFmpeg's [readeia608 documentation](https://ffmpeg.org/ffmpeg-filters.html#readeia608) and [source code](https://github.com/FFmpeg/FFmpeg/blob/master/libavfilter/vf_readeia608.c).  Credit: Paul.
+- [sccyou](https://github.com/amiaopensource/sccyou). A bash script for converting line-21s to SCC.  Credit: Dave Rice & Paul.
 - The History of Closed Captions by Chris Lott.
   - [The analog era](https://hackaday.com/2021/04/14/history-of-closed-captions-the-analog-era/)
   - [entering the digital era](https://hackaday.com/2021/05/27/history-of-closed-captions-entering-the-digital-era/)
