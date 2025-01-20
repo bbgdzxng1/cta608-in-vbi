@@ -109,22 +109,14 @@ Other useful material...
 - [libzvbi](https://github.com/zapping-vbi/zvbi)
 - A blog on [Decoding Closed Captioning](https://nootropicdesign.com/projectlab/2011/03/20/decoding-closed-captioning/)
 
-... And SCTE, SMPTE, ATSC, the good people at WGBH, the National Captioning Institute, Telecaption I, II, 3000? etc.  The crew at ld/vhs-decode.  And, of course, Team FFmpeg.
-
-### VITC in VBI
-- [Unai.VITC](https://github.com/unai-d/Unai.VITC) which creates a VITC 90-bit scanline, which kinda inspired the idea to create a Line-21 scanline that could be embedded into a pseudo-VBI.
-- FFmpeg's [readvitc](https://github.com/FFmpeg/FFmpeg/blob/master/libavfilter/vf_readvitc.c)
+... and SCTE, SMPTE, ATSC, the good people at WGBH, the National Captioning Institute TeleCaption I, II, 4000 & VR-100 devices.  The crew at ld/vhs-decode.  And, of course, Team FFmpeg.
 
 ### DTVCCs (digital 608s & 708s) in MPEG-2 Picture User Data and H.264 SEI side data
+
+Although this proof of concept does not deal with the digital representation of CTA-608 within MPEG2 Picture User Data, such as used by DTVCC 608-compatibility bytes, the following are useful resources on DTVCCs.
 - ATSC [A/53](https://www.atsc.org/atsc-documents/a53-atsc-digital-television-standard/)
 - CTA [Digital Television Closed Captioning (ANSI/CTA-708-E S-2023)](https://shop.cta.tech/products/digital-television-dtv-closed-captioning) aka DTVCCs
 - [libcaption](https://github.com/szatmary/libcaption) for inserting DTVCCs.  Credit: Matt Szatmary, formerly at Twitch, now over at mux.com
-
-### Wide-screen Signaling/Signalling in VBI
-- [Rec. ITU-R BT.1119-2](https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.1119-2-199802-W!!PDF-E.pdf) Recommendation ITU-R BT.1119-2 Wide-screen Signalling for Broadcasting (Signalling for wide-screen and other enhanced television parameters).
-- [Wide Screen Signaling](https://en.wikipedia.org/wiki/Widescreen_signaling) could be simulated in the same way.
-- vhs-decode's [Wide Screen Signaling wiki](https://github.com/oyvindln/vhs-decode/wiki/Wide-Screen-Signalling)
-- Correctly encoding a WSS in a 525 digital stream would need careful consideration, since in bit 7, the WSS signals whether the frame is a referene frame.  This relies on either prior-knowledge or predictable reference frames. 
 
 ### libzvbi's zvbi-ntsc-cc line 21 decoder
 
@@ -174,3 +166,12 @@ Installed
   Built from source on 2024-12-18 at 09:46:31
 From: https://github.com/lescanauxdiscrets/homebrew-tap/blob/HEAD/Formula/zvbi.rb
 ```
+
+### Wide-screen Signaling/Signalling in VBI
+- [Rec. ITU-R BT.1119-2](https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.1119-2-199802-W!!PDF-E.pdf) Recommendation ITU-R BT.1119-2 Wide-screen Signalling for Broadcasting (Signalling for wide-screen and other enhanced television parameters).
+- [Wide Screen Signaling](https://en.wikipedia.org/wiki/Widescreen_signaling) could be simulated in the same way, however encoding WSS in an NTSC 525 digital stream would need careful consideration, since in bit 7, the WSS signals whether the frame is a reference frame.  This would rely on either prior-knowledge (such as FFmpeg's `force_key_frames`) or a predictable reference frame cadence (such as a fixed-GOP/sub-GOP).
+- vhs-decode's [Wide Screen Signaling wiki](https://github.com/oyvindln/vhs-decode/wiki/Wide-Screen-Signalling)
+
+### VITC in VBI
+- [Unai.VITC](https://github.com/unai-d/Unai.VITC) which creates a VITC 90-bit scanline, which kinda inspired the idea to create a Line-21 scanline that could be embedded into a pseudo-VBI.
+- FFmpeg's [readvitc](https://github.com/FFmpeg/FFmpeg/blob/master/libavfilter/vf_readvitc.c)
