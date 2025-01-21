@@ -85,11 +85,20 @@ Yeah, there is a bit of duplication in the code.  If anyone wants to produce a f
 
 There is no dependency checking, no error checking, no type checking, everything is a string (rather than Python3 integers in 'bytes').  The script is just a series of commands.
 
+### Line-21 captions in SVCD & DVD
+
+The [SVCD Specification](https://archive.org/details/super-video-compact-disc-svcd-system-specification-version-1.0-may-1999/page/28/mode/2up) notes that analog line-21 captions can be included on the top pixel row of an NTSC SVCD.  An SVCD player would be expected to modulate this on line-21 of an analog output.
+
+_"V.3.3 Special Information in the MPEG video signal.  If bit|3] of the Status Flags entry of the file INFO.SD is set to one, then the top pixel row of the MPEG picture can contain special information. In this case the top pixel row is intended to be displayed at line 21 of the video output signal for NTSC. This Special Information is used for Closed Caption in USA."_
+
+Until the [DVD-Video Format Book is publicly released in early 2025](https://www.dvdfllc.co.jp/notice.html#january), it is unclear whether the DVD-Video specification supports analog line-21 captions on a video scanline, similar to SVCD.  It is considered factual that NTSC DVD-Video allow video signalling outside of an 720x480 NTSC frame, it seems that support for analog line-21s would be unlikely - unless a top-row workaround via a similar mechanism to SVCD is utilized.
+- Where Closed Captioning _is_ supported in DVD-Video, the data is stored in digital form and the line-21 output is regenerated on an analog output.  See McPoodle's [CC_MUX](http://www.theneitherworld.com/mcpoodle/SCC_TOOLS/DOCS/CC_MUX.HTML) for a reverse-engineered interpretation of real-world implementations.  In The Closed Captioning Handbook, Robson suggests that Closed Captioning support in DVD-Video was somewhat an afterthought.  _"At the last minute, support was thrown into the DVD specifications for embedded line 21 captioning...  Unfortunately, not all commercial players support the line 21 captioning capability..."_
+
 ## References
 
 ### Line-21 Captions
 
-The four magic docs that explain how to construct 608 pairs are...
+The four magic documents that explain how to construct 608 pairs are...
 - [Title-47, from The Man.](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-C/part-79)
 - CTA [Line 21 Data Services (ANSI/CTA-608-E S-2019).](https://shop.cta.tech/products/line-21-data-services) Now freely-available from CTA.  Contains useful implementation details, including extended chararacter sets which are not covered in Title-47.
 - The Closed Captioning Handbook, ROBSON, Gary D (Elsevier).  Note: this hard-to-find book is an excellent reference.  Robson was involved in the development of both 608 and 708.  This book is a great companion to Title-47 and CTA-608-E.
