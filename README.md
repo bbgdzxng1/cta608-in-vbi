@@ -70,7 +70,6 @@ Once the 52 pixel waveform is encoded as an image, the script scales that to sca
 
 It is expected that a user will encode the 640x1 scanline into non-square pixels.
 
-
 ### Why use Python PIL?
 
 I understand that Python PIL/pillow is RGB only.  Of course, it would be preferable to operate in YUV (yuvio? imageio?).  But _"if all you got is a hammer, the whole world looks like a nail"_.
@@ -84,15 +83,6 @@ I'm not a developer.  I don't speak Python.  This is my first Python script.  I 
 Yeah, there is a bit of duplication in the code.  If anyone wants to produce a function to dedupe the commands for field 1/2, they are more than welcome.
 
 There is no dependency checking, no error checking, no type checking, everything is a string (rather than Python3 integers in 'bytes').  The script is just a series of commands.
-
-### Line-21 captions in SVCD & DVD
-
-The [SVCD Specification](https://archive.org/details/super-video-compact-disc-svcd-system-specification-version-1.0-may-1999/page/28/mode/2up) notes that analog line-21 captions can be included on the top pixel row of an NTSC SVCD.  An SVCD player would be expected to modulate this on line-21 of an analog output.
-
-_"V.3.3 Special Information in the MPEG video signal.  If bit|3] of the Status Flags entry of the file INFO.SD is set to one, then the top pixel row of the MPEG picture can contain special information. In this case the top pixel row is intended to be displayed at line 21 of the video output signal for NTSC. This Special Information is used for Closed Caption in USA."_
-
-Until the [DVD-Video Format Book is publicly released in early 2025](https://www.dvdfllc.co.jp/notice.html#january), it is unclear whether the DVD-Video specification supports analog line-21 captions on a video scanline, similar to SVCD.  It is considered factual that NTSC DVD-Video allow video signalling outside of an 720x480 NTSC frame, it seems that support for analog line-21s would be unlikely - unless a top-row workaround via a similar mechanism to SVCD is utilized.
-- Where Closed Captioning _is_ supported in DVD-Video, the data is stored in digital form and the line-21 output is regenerated on an analog output.  See McPoodle's [CC_MUX](http://www.theneitherworld.com/mcpoodle/SCC_TOOLS/DOCS/CC_MUX.HTML) for a reverse-engineered interpretation of real-world implementations.  In The Closed Captioning Handbook, Robson suggests that Closed Captioning support in DVD-Video was somewhat an afterthought.  _"At the last minute, support was thrown into the DVD specifications for embedded line 21 captioning...  Unfortunately, not all commercial players support the line 21 captioning capability..."_
 
 ## References
 
@@ -123,9 +113,19 @@ Other useful material...
 ### DTVCCs (digital 608s & 708s) in MPEG-2 Picture User Data and H.264 SEI side data
 
 Although this proof of concept does not deal with the digital representation of CTA-608 within MPEG2 Picture User Data, such as used by DTVCC 608-compatibility bytes, the following are useful resources on DTVCCs.
-- ATSC [A/53](https://www.atsc.org/atsc-documents/a53-atsc-digital-television-standard/)
+- ATSC 1.0 [A/53](https://www.atsc.org/atsc-documents/a53-atsc-digital-television-standard/)
 - CTA [Digital Television Closed Captioning (ANSI/CTA-708-E S-2023)](https://shop.cta.tech/products/digital-television-dtv-closed-captioning) aka DTVCCs
 - [libcaption](https://github.com/szatmary/libcaption) for inserting DTVCCs.  Credit: Matt Szatmary, formerly at Twitch, now over at mux.com
+
+### Line-21 captions in SVCD & DVD
+
+The [SVCD Specification](https://archive.org/details/super-video-compact-disc-svcd-system-specification-version-1.0-may-1999/page/28/mode/2up) notes that analog line-21 captions can be included on the top pixel row of an NTSC SVCD.  An SVCD player would be expected to modulate this on line-21 of an analog output.
+
+_"V.3.3 Special Information in the MPEG video signal.  If bit|3] of the Status Flags entry of the file INFO.SD is set to one, then the top pixel row of the MPEG picture can contain special information. In this case the top pixel row is intended to be displayed at line 21 of the video output signal for NTSC. This Special Information is used for Closed Caption in USA."_
+
+Until the [DVD-Video Format Book is publicly released in early 2025](https://www.dvdfllc.co.jp/notice.html#january), it is unclear whether the DVD-Video specification supports analog line-21 captions on a video scanline, similar to SVCD.  It is considered factual that NTSC DVD-Video allow video signalling outside of an 720x480 NTSC frame, it seems that support for analog line-21s would be unlikely - unless a top-row workaround via a similar mechanism to SVCD is utilized.
+- Where Closed Captioning _is_ supported in DVD-Video, the data is stored as picture user data header and the line-21 output is regenerated/modulated on an analog output.  See McPoodle's [CC_MUX](http://www.theneitherworld.com/mcpoodle/SCC_TOOLS/DOCS/CC_MUX.HTML) for a reverse-engineered interpretation of real-world implementations.  In The Closed Captioning Handbook, Robson suggests that Closed Captioning support in DVD-Video was somewhat an afterthought.  _"At the last minute, support was thrown into the DVD specifications for embedded line 21 captioning...  Unfortunately, not all commercial players support the line 21 captioning capability..."_
+- It is noted that although the mechanism for DVD-Video and ATSC 1.0 are _similar_, they differ in implementation.  The DVD-Video specification pre-dates ATSC 1.0 by several years.
 
 ### libzvbi's zvbi-ntsc-cc line 21 decoder
 
