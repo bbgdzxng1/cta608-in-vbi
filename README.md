@@ -1,6 +1,6 @@
 # CTA-608 Line-21 in pseudo-VBI
 
-Proof-of-concept for creating a digital representation of a CTA-608 (CEA/EIA-608) waveform.
+A proof-of-concept for creating a digital representation of a CTA-608 (CEA/EIA-608) waveform, aka "analog line-21 captions" encoded in the video signal.
 
 ![screenshot](https://github.com/user-attachments/assets/9d67a5a4-06c6-42a3-97c1-9a68a2d3c9aa)
 
@@ -22,8 +22,7 @@ This script just takes an simple hardcoded array of CTA-608 two-byte words (the 
 - You can't set the timings.
 - You can't pipe stuff in.  It is a proof of concept.
 - You can't send the script an SCC file.  It is _not_ an SCC convertor, processor or encoder.
-- This script does not deal with DTVCCs, MPEG-2 Picture User Data, H.264 SEI side data.  It is for Line-21s.  There are other tools, such a libcaption, for creating digital 608-compatibility-bytes.  
-
+- This script does not deal with DTVCCs, MPEG-2 Picture User Data, H.264 SEI side data.  It is for analog line-21s.  Analog line-21s predate digital storage and transmission such as DTVCCs, which were subsequent mechanisms & technologies to transmit those same bytes through MPEG headers.  If you have found this repository looking for the inclusion of CTA-608 in MPEG Headers (aka 608-compatibility-bytes), see projects such as CC_MUX (DVD) and libcaption (DTVCC), referenced later in this file.  
 
 ### Line-21 Placement in NTSC
 
@@ -112,14 +111,14 @@ Other useful material...
 
 ### DTVCCs (digital 608s & 708s) in MPEG-2 Picture User Data and H.264 SEI side data
 
-Although this proof of concept does not deal with the digital representation of CTA-608 within MPEG2 Picture User Data, such as used by DTVCC 608-compatibility bytes, the following are useful resources on DTVCCs.
+Although this proof-of-concept does not aim to deal with the digital representation of CTA-608 within MPEG2 Picture User Data nor H.264 SEI side-data, the following are useful resources on DTVCCs.
 - ATSC 1.0 [A/53](https://www.atsc.org/atsc-documents/a53-atsc-digital-television-standard/)
-- CTA [Digital Television Closed Captioning (ANSI/CTA-708-E S-2023)](https://shop.cta.tech/products/digital-television-dtv-closed-captioning) aka DTVCCs
-- [libcaption](https://github.com/szatmary/libcaption) for inserting DTVCCs.  Credit: Matt Szatmary, formerly at Twitch, now over at mux.com
+- CTA [Digital Television Closed Captioning (ANSI/CTA-708-E S-2023)](https://shop.cta.tech/products/digital-television-dtv-closed-captioning), aka DTVCCs
+- [libcaption](https://github.com/szatmary/libcaption) for inserting DTVCCs and examples for muxing 608-compatibility-bytes in H.264 SEI side-data.  Credit: Matt Szatmary, formerly at Twitch, now over at mux.com.  At the time of writing, there are no known, actively maintained, open-source projects that easily allow for DTVCCs in MPEG-2 Picture User Data, although it may be possible to modify the H.264 examples included in libcaption. 
 
 ### Line-21 captions in SVCD & DVD
 
-The [SVCD Specification](https://archive.org/details/super-video-compact-disc-svcd-system-specification-version-1.0-may-1999/page/28/mode/2up) notes that analog line-21 captions can be included on the top pixel row of an NTSC SVCD.  An SVCD player would be expected to modulate this on line-21 of an analog output.
+The [SVCD Specification](https://archive.org/details/super-video-compact-disc-svcd-system-specification-version-1.0-may-1999/page/28/mode/2up) states that analog line-21 captions can be included on the top pixel row of an NTSC SVCD.  An SVCD player would be expected to modulate this on line-21 of an analog output.
 
 _"V.3.3 Special Information in the MPEG video signal.  If bit|3] of the Status Flags entry of the file INFO.SD is set to one, then the top pixel row of the MPEG picture can contain special information. In this case the top pixel row is intended to be displayed at line 21 of the video output signal for NTSC. This Special Information is used for Closed Caption in USA."_
 
