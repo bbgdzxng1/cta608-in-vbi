@@ -8,13 +8,16 @@ A proof-of-concept for creating a digital representation of a CTA-608 (CEA/EIA-6
 > This is NOT reference code.  This has only been tested with FFmpeg's readeia608, which is not a Line 21 reference decoder.
 
 ### Why bother?
-I could not find an open-source Line-21 encoder out there.  I don't know why I really needed a Line-21 encoder, but there wasn't one.
+I could not find an open-source analog line-21 encoder out there.  I don't know why I really needed an analog line-21 encoder, but there wasn't one.
 
-There's probably good reason why an open-source Line-21 encoder does not exist... A VBI would not typically be visible to a digital user; nor would the HBI.  These concepts do not appear in digital.  But I felt that FFmpeg's readeia608 decoder was missing a Line-21 encoder companion. 
+There's probably good reason why an open-source analog line-21 encoder does not exist... A VBI would not typically be visible to a digital user; nor would the HBI.  These concepts do not appear in digital.  But I felt that FFmpeg's readeia608 decoder was missing an analog line-21 encoder companion. 
 
-Ok, sometimes you will see the Line-21 waveform when digitizing a source into a full-frame 486 picture, but the VBI should not really appear in a 480 picture.  The team over at vhs-decode _do_ care about the VBI and preserving the full frame, including VBI and HBI, but the average user does not need analog Line-21 captions.  But if you have found this script, you probably know all that already.
+Ok, sometimes you will see the analog line-21 waveform when digitizing a source into a full-frame 486 picture, but the VBI should not really appear in a digital 480 picture.  The team over at vhs-decode _do_ care about the VBI and preserving the full frame, including VBI and HBI, but the average user does not need analog line-21 captions.  But if you have found this script, you probably know all that already.
 
-It could be useful for creating a digital waveform to enhance or correct a vhs-decode.  It could be used for retro-video creation.
+This repo could be used as a basis for:
+- Enhancing or correcting a vhs-decode.
+- Retro-style video creation.
+- Creating analog line-21 captions on the top-row of a SVCD.
 
 ### This script doesn't do much, right?
 
@@ -28,6 +31,8 @@ This script just takes an simple hardcoded array of CTA-608 two-byte words (the 
 
 The Line 21s in this script are probably in the wrong place, when compared to real-world implementations.  But the script can be tweaked to change the height of the pseudo-VBI.  If you want a pseudo-VBI of six lines, adjust as you see fit.
 
+It gets a little tricky between digital vertical lines and the analog-scanline naming conventions.  I make no apologies. The common locations of various similar payloads in VBI were...
+
 field1 | field2 | data
 --- | --- | ---
 14  | 277 | VITC
@@ -36,8 +41,6 @@ field1 | field2 | data
 22  | 285 | Wide-screen Signaling
 
 This naive script willingly ignores inconveniences like interlaced frames, setup/pedestal, IRE, sine-waves, colorrange, colorspace and plenty more.  It is _"ones and zeros, baby"_.  The pixels are either 0 or 255, but the script can be modified to produce 1-254 (SDI legal), or 16-240 (limited), or any value of intensity to simulate setup/pedestal when combined with an HBI.
-
-It gets a little tricky between digital vertical lines and the analog-scanline naming conventions.  I make no apologies.
 
 ### Timing
 
@@ -107,7 +110,7 @@ Other useful material...
 - [libzvbi](https://github.com/zapping-vbi/zvbi)
 - A blog on [Decoding Closed Captioning](https://nootropicdesign.com/projectlab/2011/03/20/decoding-closed-captioning/)
 
-... and SCTE, SMPTE, ATSC, the good people at WGBH, the National Captioning Institute TeleCaption I, II, 4000 & VR-100 devices.  The crew at ld/vhs-decode.  And, of course, Team FFmpeg.
+... and SCTE, SMPTE, ATSC, the good people at WGBH, the National Captioning Institute [TeleCaption I](https://www.youtube.com/watch?v=nLi2uJAwYQ4), II, 4000 & VR-100 devices.  The crew at ld/vhs-decode.  And, of course, Team FFmpeg.
 
 ### DTVCCs (digital 608s & 708s) in MPEG-2 Picture User Data and H.264 SEI side data
 
@@ -128,7 +131,7 @@ Until the [DVD-Video Format Book is publicly released in early 2025](https://www
 
 ### libzvbi's zvbi-ntsc-cc line 21 decoder
 
-From https://github.com/zapping-vbi/zvbi
+From https://github.com/zapping-vbi/zvbi.  Output from this repository has not been tested against `zvbi-ntsc-cc`
 
 ```shell
 $ zvbi-ntsc-cc -h
@@ -164,6 +167,8 @@ Options:
 -X | --xds-file filename    Append XDS info to this file [stdout]
 ```
 
+Installation of `zvbi-ntsc-cc` via homebrew, for macOS (and possibly linuxbrew?)...
+
 ```shell
 $ brew info lescanauxdiscrets/tap/zvbi
 
@@ -177,7 +182,7 @@ From: https://github.com/lescanauxdiscrets/homebrew-tap/blob/HEAD/Formula/zvbi.r
 
 ### Wide-screen Signaling/Signalling in VBI
 - [Rec. ITU-R BT.1119-2](https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.1119-2-199802-W!!PDF-E.pdf) Recommendation ITU-R BT.1119-2 Wide-screen Signalling for Broadcasting (Signalling for wide-screen and other enhanced television parameters).
-- [Wide Screen Signaling](https://en.wikipedia.org/wiki/Widescreen_signaling) could be simulated in the same way, however encoding WSS in an NTSC 525 digital stream would need careful consideration, since in bit 7, the WSS signals whether the frame is a reference frame.  This would rely on either prior-knowledge (such as FFmpeg's `force_key_frames`) or a predictable reference frame cadence (such as a fixed-GOP/sub-GOP).
+- [Wide Screen Signaling](https://en.wikipedia.org/wiki/Widescreen_signaling) could be simulated in the same way, however encoding WSS in an NTSC 525 digital stream would need careful consideration, since in bit 7, NTSC WSS signals whether the frame is a reference frame.  This would rely on either prior-knowledge (such as FFmpeg's `force_key_frames`) or a predictable reference frame cadence (such as a fixed-GOP/sub-GOP) prior to generation of the waveform.
 - vhs-decode's [Wide Screen Signaling wiki](https://github.com/oyvindln/vhs-decode/wiki/Wide-Screen-Signalling)
 
 ### VITC in VBI
