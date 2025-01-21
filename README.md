@@ -109,6 +109,7 @@ Other useful material...
   - [Second Edition (2012)](https://archive.org/details/digital-video-and-hd-algorithms-and-interfaces-2nd-ed.-poynton-2012-02-07/)
 - [libzvbi](https://github.com/zapping-vbi/zvbi)
 - A blog on [Decoding Closed Captioning](https://nootropicdesign.com/projectlab/2011/03/20/decoding-closed-captioning/)
+- [Closed Captioning: More Ingenious than You Know](https://www.youtube.com/watch?v=6SL6zs2bDks)
 
 ... and SCTE, SMPTE, ATSC, the good people at WGBH, the National Captioning Institute [TeleCaption I](https://www.youtube.com/watch?v=nLi2uJAwYQ4), II, 4000 & VR-100 devices.  The crew at ld/vhs-decode.  And, of course, Team FFmpeg.
 
