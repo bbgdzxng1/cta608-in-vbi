@@ -111,7 +111,7 @@ Other useful material...
 - A blog on [Decoding Closed Captioning](https://nootropicdesign.com/projectlab/2011/03/20/decoding-closed-captioning/)
 - [Closed Captioning: More Ingenious than You Know](https://www.youtube.com/watch?v=6SL6zs2bDks)
 
-... and SCTE, SMPTE, ATSC, the good people at WGBH, the National Captioning Institute [TeleCaption I](https://www.youtube.com/watch?v=nLi2uJAwYQ4), II, 4000 & VR-100 devices.  The crew at ld/vhs-decode.  And, of course, Team FFmpeg.
+... and SCTE, SMPTE, ATSC, the good people at WGBH, the National Captioning Institute [TeleCaption I](https://www.youtube.com/watch?v=nLi2uJAwYQ4), II, [3000](https://www.chicagotribune.com/1989/05/05/captioning-gives-deaf-whole-story/), [4000](https://www.lddb.com/hardware/1689/caption/National-Caption-Institute/TeleCaption-4000) & [VR-100](https://www.lddb.com/hardware/1973/caption/National-Caption-Institute/TeleCaption-VR-100) devices.  The crew at ld/vhs-decode.  And, of course, Team FFmpeg.
 
 ### DTVCCs (digital 608s & 708s) in MPEG-2 Picture User Data and H.264 SEI side data
 
