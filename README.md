@@ -29,7 +29,7 @@ This script just takes an simple hardcoded array of CTA-608 two-byte words (the 
 
 ### Line-21 Placement in NTSC
 
-The Line 21s in this script are probably in the wrong place, when compared to real-world implementations.  But the script can be tweaked to change the height of the pseudo-VBI.  If you want a pseudo-VBI of six lines, adjust as you see fit.
+The vertical height of the pseudo-VBI and the location of the Line-21 scanlines in this script are probably in the wrong place, when compared to real-world implementations.  But the script can be tweaked to change the height of the pseudo-VBI.  If you want a pseudo-VBI of six lines, adjust as you see fit.
 
 It gets a little tricky between digital vertical lines and the analog-scanline naming conventions.  I make no apologies. The common locations of various similar payloads in VBI were...
 
@@ -126,7 +126,7 @@ The [SVCD Specification](https://archive.org/details/super-video-compact-disc-sv
 
 _"V.3.3 Special Information in the MPEG video signal.  If bit|3] of the Status Flags entry of the file INFO.SD is set to one, then the top pixel row of the MPEG picture can contain special information. In this case the top pixel row is intended to be displayed at line 21 of the video output signal for NTSC. This Special Information is used for Closed Caption in USA."_
 
-Until the [DVD-Video Format Book is publicly released in early 2025](https://www.dvdfllc.co.jp/notice.html#january), it is unclear whether the DVD-Video specification supports analog line-21 captions on a video scanline, similar to SVCD.  It is considered factual that NTSC DVD-Video allow video signalling outside of an 720x480 NTSC frame, it seems that support for analog line-21s would be unlikely - unless a top-row workaround via a similar mechanism to SVCD is utilized.
+Until the [DVD-Video Format Book is publicly released in early 2025](https://www.dvdfllc.co.jp/notice.html#january), it is unclear whether the DVD-Video specification supports analog line-21 captions on a video scanline, similar to SVCD.  It is considered factual that NTSC DVD-Video does not allow NTSC video signalling outside of an 720x480 NTSC frame, it seems that support for analog line-21s would be unlikely - unless a top-row workaround via a similar mechanism to SVCD is utilized.
 - Where Closed Captioning _is_ supported in DVD-Video, the data is stored as picture user data header and the line-21 output is regenerated/modulated on an analog output.  See McPoodle's [CC_MUX](http://www.theneitherworld.com/mcpoodle/SCC_TOOLS/DOCS/CC_MUX.HTML) for a reverse-engineered interpretation of real-world implementations.  In The Closed Captioning Handbook, Robson suggests that Closed Captioning support in DVD-Video was somewhat an afterthought.  _"At the last minute, support was thrown into the DVD specifications for embedded line 21 captioning...  Unfortunately, not all commercial players support the line 21 captioning capability..."_
 - It is noted that although the mechanism for DVD-Video and ATSC 1.0 are _similar_, they differ in implementation.  The DVD-Video specification pre-dates ATSC 1.0 by several years.
 
