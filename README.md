@@ -181,9 +181,9 @@ Installed
 From: https://github.com/lescanauxdiscrets/homebrew-tap/blob/HEAD/Formula/zvbi.rb
 ```
 
-### Max Smith's cc_decoder
+### Max Smith's cc_decode.py
 
-A Python-based line-21 decoder, written for extraction of line 21s of Laserdiscs.  `cc_decoder.py` appears to be able to extract line21s to SCC (and SRT).  Output from this repository has not been tested against `cc_decoder.py`.
+A Python-based line-21 decoder, written for extraction of line 21s from Laserdiscs.  `cc_decoder.py` appears to be able to extract line21s to SCC (and SRT).  Output from this repository has not been tested against `cc_decoder.py`.
 
 https://github.com/CordySmith/cc_decoder
 
