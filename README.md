@@ -181,6 +181,13 @@ Installed
 From: https://github.com/lescanauxdiscrets/homebrew-tap/blob/HEAD/Formula/zvbi.rb
 ```
 
+### Max Smith's cc_decoder
+
+A Python-based line-21 decoder, written for extraction of line 21s of Laserdiscs.  `cc_decoder.py` appears to be able to extract line21s to SCC (and SRT).  Output from this repository has not been tested against `cc_decoder.py`.
+
+https://github.com/CordySmith/cc_decoder
+
+
 ### Wide-screen Signaling/Signalling in VBI
 - [Rec. ITU-R BT.1119-2](https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.1119-2-199802-W!!PDF-E.pdf) Recommendation ITU-R BT.1119-2 Wide-screen Signalling for Broadcasting (Signalling for wide-screen and other enhanced television parameters).
 - [Wide Screen Signaling](https://en.wikipedia.org/wiki/Widescreen_signaling) could be simulated in the same way, however encoding WSS in an NTSC 525 digital stream would need careful consideration, since in bit 7, NTSC WSS signals whether the frame is a reference frame.  This would rely on either prior-knowledge (such as FFmpeg's `force_key_frames`) or a predictable reference frame cadence (such as a fixed-GOP/sub-GOP) prior to generation of the waveform.
