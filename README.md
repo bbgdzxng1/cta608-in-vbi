@@ -12,7 +12,7 @@ I could not find an open-source analog line-21 encoder out there.  I don't know 
 
 There's probably good reason why an open-source analog line-21 encoder does not exist... A VBI would not typically be visible to a digital user; nor would the HBI.  These concepts do not appear in digital.  But I felt that FFmpeg's readeia608 decoder was missing an analog line-21 encoder companion. 
 
-Ok, sometimes you will see the analog line-21 waveform when digitizing a source into a full-frame 486 picture, but the VBI should not really appear in a digital 480 picture.  The team over at vhs-decode _do_ care about the VBI and preserving the full frame, including VBI and HBI, but the average user does not need analog line-21 captions.  But if you have found this script, you probably know all that already.
+Ok, sometimes you will see the analog line-21 waveform when digitizing a source into a full-frame 486 picture, but the VBI should not really appear in a digital 480 picture.  The team over at [vhs-decode](https://github.com/oyvindln/vhs-decode) _do_ care about the VBI and preserving the full frame, including VBI and HBI, but the average user does not need analog line-21 captions.  But if you have found this script, you probably know all that already.
 
 This repo could be used as a basis for:
 - Enhancing or correcting a vhs-decode.
@@ -100,7 +100,7 @@ The four magic documents that explain how to construct 608 pairs are...
 
 Other useful material...
 - FFmpeg's [readeia608 documentation](https://ffmpeg.org/ffmpeg-filters.html#readeia608) and [source code](https://github.com/FFmpeg/FFmpeg/blob/master/libavfilter/vf_readeia608.c).  Credit: Paul.
-- [sccyou](https://github.com/amiaopensource/sccyou). A bash script for converting line-21s to SCC.  Credit: Dave Rice & Paul.
+- [sccyou](https://github.com/amiaopensource/sccyou). A bash script for converting line-21s to SCC, based on the readeia608 filter.  Credit: Dave Rice & Paul.
 - The History of Closed Captions by Chris Lott.
   - [The analog era](https://hackaday.com/2021/04/14/history-of-closed-captions-the-analog-era/)
   - [entering the digital era](https://hackaday.com/2021/05/27/history-of-closed-captions-entering-the-digital-era/)
@@ -126,7 +126,7 @@ The [SVCD Specification](https://archive.org/details/super-video-compact-disc-sv
 
 _"V.3.3 Special Information in the MPEG video signal.  If bit|3] of the Status Flags entry of the file INFO.SD is set to one, then the top pixel row of the MPEG picture can contain special information. In this case the top pixel row is intended to be displayed at line 21 of the video output signal for NTSC. This Special Information is used for Closed Caption in USA."_
 
-Until the [DVD-Video Format Book is publicly released in early 2025](https://www.dvdfllc.co.jp/notice.html#january), it is unclear whether the DVD-Video specification supports analog line-21 captions on a video scanline, similar to SVCD.  It is considered factual that NTSC DVD-Video does not allow NTSC video signalling outside of an 720x480 NTSC frame, it seems that support for analog line-21s would be unlikely - unless a top-row workaround via a similar mechanism to SVCD is utilized.
+Until the [DVD-Video Format Book is publicly released in early 2025](https://www.dvdfllc.co.jp/notice.html#january), it is unclear whether the DVD-Video specification supports analog line-21 captions on a video scanline, similar to SVCD.  It is considered factual that NTSC DVD-Video does not allow NTSC video signalling outside of an 720x480 NTSC frame, it seems that support for analog line-21s would be unlikely unless a "top-row workaround" via a similar mechanism to SVCD is utilized.
 - Where Closed Captioning _is_ supported in DVD-Video, the data is stored as picture user data header and the line-21 output is regenerated/modulated on an analog output.  See McPoodle's [CC_MUX](http://www.theneitherworld.com/mcpoodle/SCC_TOOLS/DOCS/CC_MUX.HTML) for a reverse-engineered interpretation of real-world implementations.  In The Closed Captioning Handbook, Robson suggests that Closed Captioning support in DVD-Video was somewhat an afterthought.  _"At the last minute, support was thrown into the DVD specifications for embedded line 21 captioning...  Unfortunately, not all commercial players support the line 21 captioning capability..."_
 - It is noted that although the mechanism for DVD-Video and ATSC 1.0 are _similar_, they differ in implementation.  The DVD-Video specification pre-dates ATSC 1.0 by several years.
 
@@ -182,11 +182,8 @@ From: https://github.com/lescanauxdiscrets/homebrew-tap/blob/HEAD/Formula/zvbi.r
 ```
 
 ### Max Smith's cc_decode.py
-
 A Python-based line-21 decoder, written for extraction of line 21s from Laserdiscs.  `cc_decoder.py` appears to be able to extract line21s to SCC (and SRT).  Output from this repository has not been tested against `cc_decoder.py`.
-
 https://github.com/CordySmith/cc_decoder
-
 
 ### Wide-screen Signaling/Signalling in VBI
 - [Rec. ITU-R BT.1119-2](https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.1119-2-199802-W!!PDF-E.pdf) Recommendation ITU-R BT.1119-2 Wide-screen Signalling for Broadcasting (Signalling for wide-screen and other enhanced television parameters).
