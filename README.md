@@ -40,22 +40,20 @@ field1 | field2 | data
 21  | 284 | EIA-608 Line 21
 22  | 285 | Wide-screen Signaling
 
-This naive script willingly ignores inconveniences like interlaced frames, setup/pedestal, IRE, sine-waves, colorrange, colorspace and plenty more.  It is _"ones and zeros, baby"_.  The pixels are either 0 or 255, but the script can be modified to produce 1-254 (SDI legal), or 16-240 (limited), or any value of intensity to simulate setup/pedestal when combined with an HBI.
+This naive script willingly ignores inconveniences like interlaced frames, setup/pedestal, IRE, sine-waves, colorrange, colorspace and plenty more.  It is _"ones and zeros, baby"_.  The pixels are either 0 or 255, but the script can be modified to produce 1-254 (SDI legal), or 16-240 (limited), or any value of intensity to simulate setup/pedestal when within an HBI.
 
 ### Timing
 
-Analog horizontal scanlines do not operate in a currency of _pixels_, they operate in _time_.  Fortunately, in _Table 2, Line 21 Waveform Timing_ of the EIA-608 Spec (now free to access), it lists timings relative to the timing of the Data Bit 'D' within the Start Bits.
+Analog horizontal scanlines do not operate in a currency of _pixels_, they operate in a currency of _time_.  Fortunately, in _Table 2, Line 21 Waveform Timing_ of the EIA-608 Spec (now free to access), it lists timings relative to the timing of the Data Bit 'D' within the Start Bits.
 
 Section | Timing
 --- | ---
-Clock Run-In (B) | 6.5 * D (but lets use 7 * D)
+Clock Run-In (B) | 7 * D (could get away with 6.5 * D)
 Clock Run-In to Third Start Bit (C) | 2   * D
 Data Bit (D) | 1   * D
 Data Characters (E) | 16   * D
 
-That gets us to 26 * D.  Since Clock Run-In needs to be a sinusoidal wave of freqency D to produce `01010101010101`, that needs 14 pixels.  Thus D need to be a minimum of 2 pixels.
-
-In "The Closed Captioning Handbook", Gary Robson writes _"The Clock Run-In signal is 7 full cycles of a 0.5034965 MHz sine wave centered around the 25 IRE level, lasting 12.91 ps."_  Robson was a member of the 608 and 708 working group, so we'll use 7*D as the Clock Run-In.
+That gets us to 26 * D.  Clock Run-In needs 7 (or 6.5) cycles of an oscillating wave of freqency D.  If we assume that a digital square-wave is a sufficient approximation of a sine wave, _D needs to be an absolute minimum of 2 pixels to approximate a sinusoidal Clock Run-In cycle with square-waves._
 
 Section | Pixels (D = 2 pixels)
 --- | ---
@@ -64,27 +62,31 @@ Clock Run-In to Third Start Bit (C) | 2 * D = 4 pixels
 Data Bit (D) | 1 * D = 2 pixels
 Data Characters (E) | 16 * D = 32 pixels
 
-You could probably get away with just a total of 51 pixels minimum if you use `1010101010101` as the Clock Run-In(B) of 6.5 * D = 6.5 * 2 pixels = 13 pixels.  13+4+2+32 = absolute bare minimum of 51 pixels.  But that's a nasty number.  So we'll use a full `01010101010101` as the run-in giving us a minimum of 52.
+- Is the Clock Run-In 6.5 or 7 cycles?
+  - The EIA608 spec states a minimum of 6.5 * D, ie `1010101010101`.  Since D requires a minimum of 2 pixels to represent an oscillating square wave, the Clock Run-In needs an absolute minimum of 13 pixels, thus the total minimum playload is 13+4+2+32 = 51 pixels.
+  - In "The Closed Captioning Handbook", Gary Robson writes _"The Clock Run-In signal is 7 full cycles of a 0.5034965 MHz sine wave, centered around the 25 IRE level, lasting 12.91 ps."_  Robson was a member of the 608 and 708 working group, so we'll use 7*D as the Clock Run-In.  With 7 full cycles, the clock run-in is `01010101010101`, thus the total minimum playload is 14+4+2+32 = 52 pixels.  52 is a nicer number than 51.  Therefore we'll use 7 * D.
 
-Once the 52 pixel waveform is encoded as an image, the script scales that to scanline of 640 square pixels wide.  It is a bit irritating that the payload ends up as 52 horizontal width is mathematically imperfect when placed on a 640 square pixel scanline (but given that analog line-21 608s rely on sine waves, it is within the realms of error).
-- There must be a more elegant way of pre & post padding to a harmonic of 640 (64?), so that it scales pixel-perfect to 640.
-- 51 is not much better than 52.  And decoders may not expect the scanline to start immediately on a 1.
+Once the 52 pixel payload/waveform is encoded as an image, the script scales that image to a full scanline of 640 square-pixels width.  It is a bit irritating that 52 pixels is not a perfect harmonic of a 640 square-pixel scanline, but given that analog line-21 608s rely on oscillation waves and timing rather than digital pixels, it is within the realms of reasonable error.
+- There may be a more elegant way of pre & post-padding the payload to a harmonic of 640 (64?), so that it scales pixel-perfect to 640.
+- A more competant coder could skip the scaling step and generate the payload at full resolution, or may even choose to vary the intensity to avoid the square-wave/sine-wave approximation.
 
-It is expected that a user will encode the 640x1 scanline into non-square pixels.
+The 640x1 scanline can then be used in a VBI, or overlaid on the top row of a 480 video frame depending on the output format.
+
+It is expected that a user will eventually encode the 640 square pixels into NTSC non-square pixels.
 
 ### Why use Python PIL?
 
-I understand that Python PIL/pillow is RGB only.  Of course, it would be preferable to operate in YUV (yuvio? imageio?).  But _"if all you got is a hammer, the whole world looks like a nail"_.
+Python PIL/pillow is RGB only.  Of course, it would be preferable to operate in YUV (yuvio? imageio?).  But _"if all you got is a hammer, the whole world looks like a nail"_.
 
-PIL it shall be, we'll let FFmpeg take the pain of color formats.
+PIL it shall be, for the purposes of a prrof-of-concept, we'll let FFmpeg take the pain of color formats.
 
 ### Code Quality is only 1/10
 
-I'm not a developer.  I don't speak Python.  This is my first Python script.  I don't know Python best practice nor any naming or coding conventions.  If there is an error, reader, you'll be better qualified than I to fix.  The code will probably run faster with pypy3 rather than python3.
+I'm not a developer.  I don't speak Python.  This is my first Python script.  I don't know Python best-practice, nor any naming or coding conventions.  If there is an error, reader, you'll be better qualified than I to fix.  It is most likely that the script will run faster with pypy3 rather than python3.
 
 Yeah, there is a bit of duplication in the code.  If anyone wants to produce a function to dedupe the commands for field 1/2, they are more than welcome.
 
-There is no dependency checking, no error checking, no type checking, everything is a string (rather than Python3 integers in 'bytes').  The script is just a series of commands.
+The script contains no dependency checking, no error checking, no type checking, everything is a string (rather than Python3's new 'bytes').  The script is just a series of naive commands.
 
 ## References
 
