@@ -78,7 +78,7 @@ It is expected that a user will eventually encode the 640 square pixels into NTS
 
 Python PIL/pillow is RGB only.  Of course, it would be preferable to operate in YUV (yuvio? imageio?).  But _"if all you got is a hammer, the whole world looks like a nail"_.
 
-PIL it shall be, for the purposes of a prrof-of-concept, we'll let FFmpeg take the pain of color formats.
+PIL it shall be, for the purposes of a proof-of-concept, we'll let FFmpeg take the pain of color formats.
 
 ### Code Quality is only 1/10
 
