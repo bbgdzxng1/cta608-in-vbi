@@ -70,9 +70,13 @@ Once the 52 pixel payload/waveform is encoded as an image, the script scales tha
 - There may be a more elegant way of pre & post-padding the payload to a harmonic of 640 (64?), so that it scales pixel-perfect to 640.
 - A more competant coder could skip the scaling step and generate the payload at full resolution, or may even choose to vary the intensity to avoid the square-wave/sine-wave approximation.
 
+<img width="640" height="23" alt="image" src="https://github.com/user-attachments/assets/c3f8ec2f-8e83-4448-9c16-232ad428c610" />
+
 The 640x1 scanline can then be used in a VBI, or overlaid on the top row of a 480 video frame depending on the output format.
 
 It is expected that a user will eventually encode the 640 square pixels into NTSC non-square pixels.
+
+![screenshot](https://github.com/user-attachments/assets/9d67a5a4-06c6-42a3-97c1-9a68a2d3c9aa)
 
 ### Why use Python PIL?
 
